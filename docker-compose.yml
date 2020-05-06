@@ -1,5 +1,18 @@
 version: '3'
 services:
+  postgres:
+    container_name: postgres-db
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+       POSTGRES_DB: pg_prisma
+       POSTGRES_USER: postgres
+       POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./volumes/home:/home
+      - ./volumes/home/work:/work
   prisma:
     image: prismagraphql/prisma:1.12
     restart: always
@@ -15,7 +28,7 @@ services:
             connector: postgres
             host: localhost
             port: '5432'
-            database: pg_dump
+            database: pg_prisma
             schema: schema.graphql
             user: postgres
             password: postgres
