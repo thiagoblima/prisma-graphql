@@ -74,3 +74,24 @@ createPostForUser('ck9w7fp6300470987qaocktuy', {
 }).then((user) => {
     console.log(JSON.stringify(user, undefined, 2))
 })
+
+const updatePostForUser = async (postId, data) => {
+    const post = await prisma.mutation.updatePost({
+        where: {
+            id: postId
+        },
+        data
+    }, '{ author { id } }')
+    const user = await prisma.query.user({
+        where: {
+            id: post.author.id
+        }
+    }, '{ id name email posts { id title published } }')
+    return user
+}
+
+updatePostForUser("ck9w8xq2h008m0987ujdsrhwf", {
+    published: false
+}).then((user) => {
+    console.log(JSON.stringify(user, undefined, 2))
+})
