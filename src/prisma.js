@@ -10,5 +10,5 @@ prisma.query.users(null, '{ id name email posts { id title }}').then((data) => {
 })
 
 prisma.query.comments(null, '{ id text author { id name } post { id title body }}').then((data) => {
-    console.log(data)
+    console.log(JSON.stringify(data, undefined, 2))
 })
