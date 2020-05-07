@@ -48,7 +48,15 @@ prisma.mutation.updatePost({
     console.log(data)
 })
 
+// prisma.query prisma.mutation prisma.subscription prisma.exists
+
 const createPostForUser = async (authorId, data) => {
+    const userExists = await prisma.exists.User({ id: authorId })
+
+    if (!userExists) {
+        throw new Error('User not found')
+    }
+
     const post = await prisma.mutation.createPost({
         data: {
             ...data,
@@ -58,40 +66,40 @@ const createPostForUser = async (authorId, data) => {
                 }
             }
         }
-    }, '{ id }')
-    const user = await prisma.query.user({
-        where: {
-            id: authorId
-        }
-    }, '{ id name email posts { id title published } }')
-    return user
+    }, '{ author { id name email posts { id title published } } }')
+
+    return post.author
 }
 
-createPostForUser('ck9w7fp6300470987qaocktuy', {
-    title: 'Great books to read',
-    body: 'The War of Art',
-    published: true
-}).then((user) => {
-    console.log(JSON.stringify(user, undefined, 2))
-})
+// createPostForUser('cjjybkwx5006h0822n32vw7dj', {
+//     title: 'Great books to read',
+//     body: 'The War of Art',
+//     published: true
+// }).then((user) => {
+//     console.log(JSON.stringify(user, undefined, 2))
+// }).catch((error) => {
+//     console.log(error.message)
+// })
 
 const updatePostForUser = async (postId, data) => {
+    const postExists = await prisma.exists.Post({ id: postId })
+
+    if (!postExists) {
+        throw new Error('Post not found')
+    }
+
     const post = await prisma.mutation.updatePost({
         where: {
             id: postId
         },
         data
-    }, '{ author { id } }')
-    const user = await prisma.query.user({
-        where: {
-            id: post.author.id
-        }
-    }, '{ id name email posts { id title published } }')
-    return user
+    }, '{ author { id name email posts { id title published } } }')
+    
+    return post.author
 }
 
-updatePostForUser("ck9w8xq2h008m0987ujdsrhwf", {
-    published: false
-}).then((user) => {
-    console.log(JSON.stringify(user, undefined, 2))
-})
+// updatePostForUser("power", { published: true }).then((user) => {
+//     console.log(JSON.stringify(user, undefined, 2))
+// }).catch((error) => {
+//     console.log(error.message)
+// })
