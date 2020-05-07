@@ -17,7 +17,7 @@ services:
     image: prismagraphql/prisma:1.12
     restart: always
     ports:
-    - "4466:4466"
+    - 4466:4466
     environment:
       PRISMA_CONFIG: |
         port: 4466
@@ -27,7 +27,7 @@ services:
           default:
             connector: postgres
             host: localhost
-            port: '5432'
+            port: 5432
             database: pg_prisma
             schema: schema.graphql
             user: postgres
