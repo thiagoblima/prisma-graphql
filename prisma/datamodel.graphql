@@ -1,14 +1,21 @@
 type User {
-  id: ID! @id
+  id: ID! @unique
   name: String! 
   email: String! @unique
   posts: [Post!]!
 }
 
 type Post {
-  id: ID! @id
+  id: ID! @unique
   title: String! 
   body: String!
   published: Boolean!
   author: User!
+}
+
+type Comment {
+  id: ID! @unique
+  text: String!
+  author: User!
+  post: Post!
 }
