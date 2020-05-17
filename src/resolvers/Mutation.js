@@ -39,7 +39,7 @@ const Mutation = {
             data: args.data
         }, info)
     },
-    createPost(parent, args, { prisma }, info) {
+    async createPost(parent, args, { prisma }, info) {
         return prisma.mutation.createPost({
             data: {
                 title: args.data.title,
