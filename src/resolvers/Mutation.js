@@ -87,7 +87,11 @@ const Mutation = {
        }, info)
     },
     deleteComment(parent, args, { prisma }, info) {
-        
+        return prisma.mutation.deleteComment({
+            where: {
+                id: args.id
+            }
+        }, info)
     },
     updateComment(parent, args, { prisma }, info) {
         return prisma.mutation.updateComment({
