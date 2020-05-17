@@ -69,29 +69,22 @@ const Mutation = {
             data: args.data
         }, info)
     },
-    createComment(parent, args, { db, pubsub }, info) {
-        const userExists = db.users.some((user) => user.id === args.data.author)
-        const postExists = db.posts.some((post) => post.id === args.data.post && post.published)
-
-        if (!userExists || !postExists) {
-            throw new Error('Unable to find the user and post')
-        }
-
-        const comment = {
-            id: uuidv4(),
-            ...args.data
-        }
-
-        db.comments.push(comment)
-        pubsub.publish(`comment ${args.data.post}`, { 
-            comment: {
-                mutation: 'CREATED',
-                data: comment
-            } 
-        })
-
-        return comment
-
+    createComment(parent, args, { prisma }, info) {
+       return prisma.mutation.createComment({
+           data: {
+               text: args.data.text,
+               author: {
+                   connect: {
+                       id: args.data.author
+                   }
+               },
+               post: {
+                   connect: {
+                       id: args.data.post
+                   }
+               }
+           }
+       }, info)
     },
     deleteComment(parent, args, { db, pubsub }, info) {
         const commentIndex = db.comments.findIndex((comment) => comment.id === args.id)
