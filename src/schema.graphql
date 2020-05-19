@@ -95,7 +95,7 @@ type Query {
 
     type PostsubscriptionPayload {
         mutation: MutationType!
-        data: Post!
+        node: Post!
     }
 
     type CommentSubscriptionPayload {
