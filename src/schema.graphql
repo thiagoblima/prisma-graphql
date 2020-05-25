@@ -31,7 +31,7 @@ type Query {
     input CreateUserInput {
         name: String! 
         email: String!
-        age: Int
+        password: String!
     }
 
     input UpdateUserInput {
