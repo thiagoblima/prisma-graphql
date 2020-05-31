@@ -48,14 +48,12 @@ type Query {
     input UpdateUserInput {
         name: String
         email: String
-        age: Int
     }
 
     input CreatePostInput {
         title: String! 
         body: String!
         published: Boolean!
-        author: ID!
     }
 
     input UpdatePostInput {
