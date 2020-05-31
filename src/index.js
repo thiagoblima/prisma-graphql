@@ -1,5 +1,6 @@
 import {
-    GraphQLServer, PubSub
+    GraphQLServer,
+    PubSub
 } from 'graphql-yoga'
 import db from './db';
 import Query from './resolvers/Query'
@@ -22,10 +23,14 @@ const server = new GraphQLServer({
         Post,
         Comment
     },
-    context: {
-        db,
-        pubsub,
-        prisma
+    context(request) {
+        return {
+            db,
+            pubsub,
+            prisma,
+            request
+        }
+
     }
 })
 
