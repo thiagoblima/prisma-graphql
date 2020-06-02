@@ -59,8 +59,9 @@ const Mutation = {
 
     },
 
-    async updateUser(parent, args, { prisma }, info) {
+    async updateUser(parent, args, { prisma, request }, info) {
         const userExists = await prisma.exists.User({ id: args.id })
+        const userId = getUserId(request)
 
         if (!userExists) {
             throw new Error('User not found')
@@ -68,7 +69,7 @@ const Mutation = {
 
         return prisma.mutation.updateUser({
             where: {
-                id: args.id,
+                id: userId,
             },
             data: args.data
         }, info)
