@@ -44,8 +44,9 @@ const Mutation = {
             token: jwt.sign({ userId: user.id }, '61133F2EABE79CA4475F9CAB14124')
         }
     },
-    async deleteUser(parent, args, { prisma }, info) {
+    async deleteUser(parent, args, { prisma, request }, info) {
       const userExists = await prisma.exists.User({ id: args.id })
+      const userId = getUserId(request)
 
        if (!userExists) {
            throw new Error('User doesn\'t exist')
@@ -53,7 +54,7 @@ const Mutation = {
        
        return prisma.mutation.deleteUser({
            where: {
-               id: args.id
+               id: userId
            }
        }, info)
 
