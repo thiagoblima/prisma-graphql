@@ -64,12 +64,14 @@ const Query = {
     grades(parent, args, ctx, info) {
         return [99, 80, 93]
     },
-    me() {
-        return {
-            id: '123098',
-            name: 'Mike',
-            email: 'mike@example.com'
-        }
+    me(parent, args, { prisma, request }, info) {
+        const userId = getUserId(request)
+
+        return prisma.query.user({
+            where: {
+                id: userId
+            }
+        })
     },
     async post(parent, args, { prisma, request }, info) {
          const userId = getUserId(request, false)
