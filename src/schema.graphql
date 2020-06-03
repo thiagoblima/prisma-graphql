@@ -7,7 +7,7 @@ type Query {
         comments: [Comment!]!
         grades: [Int!]!
         me: User!
-        post: Post!
+        post(id: ID!): Post!
     }
 
     type Mutation {
