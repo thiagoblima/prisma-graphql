@@ -75,7 +75,7 @@ type Query {
     type User {
         id: ID!
         name: String!
-        email: String!
+        email: String
         posts: [Post!]!
         comments: [Comment!]!
     }
