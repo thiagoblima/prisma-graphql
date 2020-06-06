@@ -119,7 +119,7 @@ const Mutation = {
             } 
         })
 
-        const isPublished = await prisma.exists.Post({ id: args.id, published: true})
+        const isPublished = await prisma.exists.Post({ id: args.id, published: true })
 
         if (!postExists) {
             throw new Error('Unable to update post')
