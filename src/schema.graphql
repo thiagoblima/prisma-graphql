@@ -28,6 +28,7 @@ type Query {
         count: Int!
         comment(postId: ID!): CommentSubscriptionPayload!
         post: PostsubscriptionPayload!
+        myPost: PostsubscriptionPayload!    
     }
 
     type AuthPayload {
