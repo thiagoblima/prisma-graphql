@@ -91,6 +91,8 @@ type Query {
         published: Boolean!
         author: User!
         comments: [Comment!]!
+        createdAt: String!
+        updatedAt: String!
     }
 
     type Comment {
@@ -98,6 +100,8 @@ type Query {
         text: String!
         author: User!
         post: Post!
+        createdAt: String!
+        updatedAt: String!
     }
 
     enum MutationType {

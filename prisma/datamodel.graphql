@@ -16,6 +16,8 @@ type Post {
   published: Boolean!
   author: User! @relation(name: "PostToUser", onDelete: SET_NULL)
   comments: [Comment!]! @relation(name: "CommentToPost", onDelete: CASCADE)
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type Comment {
@@ -23,4 +25,6 @@ type Comment {
   text: String!
   author: User! @relation(name: "CommentToUser", onDelete: SET_NULL)
   post: Post!@relation(name: "CommentToPost", onDelete: SET_NULL)
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
