@@ -1,13 +1,13 @@
-# import UserOrderByInput from './generated/prisma.graphql'
+# import UserOrderByInput, PostOrderByInput, CommentOrderByInput from './generated/prisma.graphql'
 
 type Query {
         users(query: String, first: Int, skip: Int, after: String, orderBy: UserOrderByInput): [User!]!
-        posts(query: String, first: Int, skip: Int, after: String): [Post!]!
-        myPosts(query: String, first: Int, skip: Int, after: String): [Post!]!
+        posts(query: String, first: Int, skip: Int, after: String, orderBy: PostOrderByInput): [Post!]!
+        myPosts(query: String, first: Int, skip: Int, after: String, orderBy: PostOrderByInput): [Post!]!
         greeting(name: String, position: String): String!
         order(item: String, qtd: Int, price: Float!): String!
         add(numbers: [Float!]!): Float!
-        comments(first: Int, skip: Int, after: String): [Comment!]!
+        comments(first: Int, skip: Int, after: String, orderBy: CommentOrderByInput): [Comment!]!
         grades: [Int!]!
         me: User!
         post(id: ID!): Post!
