@@ -80,6 +80,8 @@ type Query {
         email: String
         posts: [Post!]!
         comments: [Comment!]!
+        createdAt: String!
+        updatedAt: String!
     }
 
     type Post {

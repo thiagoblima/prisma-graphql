@@ -5,6 +5,8 @@ type User {
   email: String! @unique
   posts: [Post!]! @relation(name: "PostToUser", onDelete: CASCADE)
   comments: [Comment!]! @relation(name: "CommentToUser", onDelete: CASCADE)
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type Post {
