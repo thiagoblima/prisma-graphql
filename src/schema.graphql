@@ -1,6 +1,6 @@
 type Query {
-        users(query: String, first: Int, skip: Int): [User!]!
-        posts(query: String, first: Int, skip: Int): [Post!]!
+        users(query: String, first: Int, skip: Int, after: String): [User!]!
+        posts(query: String, first: Int, skip: Int, after: String): [Post!]!
         myPosts(query: String): [Post!]!
         greeting(name: String, position: String): String!
         order(item: String, qtd: Int, price: Float!): String!
