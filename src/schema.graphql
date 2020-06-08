@@ -1,5 +1,5 @@
 type Query {
-        users(query: String): [User!]!
+        users(query: String, first: Int, skip: Int): [User!]!
         posts(query: String): [Post!]!
         myPosts(query: String): [Post!]!
         greeting(name: String, position: String): String!
