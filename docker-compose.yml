@@ -1,5 +1,9 @@
 version: '3'
 services:
+  api: 
+    image: 'node:6-alpine'
+    env_file:
+     - ./.env
   postgres:
     container_name: postgres-db
     image: postgres
@@ -26,10 +30,10 @@ services:
         databases:
           default:
             connector: postgres
-            host: host.docker.internal
+            host: ${HOST}
             port: 5432
-            database: pg_prisma
+            database: ${DATABASE}
             schema: schema.graphql
-            user: postgres
-            password: postgres
+            user: ${POSTGRES_USER}
+            password: ${POSTGRES_PASSWORD}
             migrations: true
