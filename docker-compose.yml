@@ -11,9 +11,9 @@ services:
     ports:
       - 5432:5432
     environment:
-       POSTGRES_DB: pg_prisma
-       POSTGRES_USER: postgres
-       POSTGRES_PASSWORD: postgres
+       POSTGRES_DB: ${POSTGRES_DATABASE}
+       POSTGRES_USER: ${POSTGRES_USER}
+       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - ./volumes/home:/home
       - ./volumes/home/work:/work
