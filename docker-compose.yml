@@ -30,9 +30,9 @@ services:
         databases:
           default:
             connector: postgres
-            host: ${HOST}
+            host: ${POSTGRES_HOST}
             port: 5432
-            database: ${DATABASE}
+            database: ${POSTGRES_DATABASE}
             schema: schema.graphql
             user: ${POSTGRES_USER}
             password: ${POSTGRES_PASSWORD}
