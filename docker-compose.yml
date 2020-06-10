@@ -29,11 +29,11 @@ services:
         # managementApiSecret: my-secret
         databases:
           default:
-            connector: postgres
+            connector: ${DATABASE_CONNECTOR}
             host: ${POSTGRES_HOST}
             port: 5432
             database: ${POSTGRES_DATABASE}
-            schema: schema.graphql
+            schema: ${POSTGRES_SCHEMA}
             user: ${POSTGRES_USER}
             password: ${POSTGRES_PASSWORD}
             migrations: true
