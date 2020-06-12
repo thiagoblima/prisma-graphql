@@ -1,7 +1,5 @@
-import {
-    GraphQLServer,
-    PubSub
-} from 'graphql-yoga'
+import "@babel/polyfill"
+import { GraphQLServer, PubSub } from 'graphql-yoga'
 import db from './db';
 import { resolvers, fragmentReplacements } from './resolvers/index'
 import prisma from './prisma'

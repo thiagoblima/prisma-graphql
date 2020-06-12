@@ -1,4 +1,5 @@
 
+dist
 volumes
 node_modules
 .env
