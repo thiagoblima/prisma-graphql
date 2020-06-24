@@ -8,7 +8,9 @@
     "heroku-postbuild": "babel src --out-dir dist --copy-files",
     "dev": "env-cmd ./config/dev.env nodemon src/index.js --ext js,graphql --exec babel-node",
     "get-dev-schema": "env-cmd ./config/dev.env graphql get-schema -p prisma",
-    "get-prod-schema": "env-cmd ./config/prod.env graphql get-schema -p prisma"
+    "get-prod-schema": "env-cmd ./config/prod.env graphql get-schema -p prisma",
+    "prisma-deploy-dev": "cd ./prisma && prisma deploy -e ../config/dev.env",
+    "prisma-deploy-prod": "cd ./prisma && prisma deploy -e ../config/prod.env"
   },
   "author": "",
   "license": "ISC",
