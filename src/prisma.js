@@ -1,6 +1,4 @@
-import {
-    Prisma
-} from 'prisma-binding'
+import { Prisma } from 'prisma-binding'
 import { fragmentReplacements } from './resolvers/index'
 
 const prisma = new Prisma({
