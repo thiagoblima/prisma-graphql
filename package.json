@@ -10,6 +10,7 @@
     "get-dev-schema": "graphql get-schema -p prisma --dotenv config/dev.env",
     "get-prod-schema": "graphql get-schema -p prisma --dotenv config/prod.env",
     "prisma-deploy-dev": "cd ./prisma && prisma deploy -e ../config/dev.env",
+    "prisma-deploy-test": "cd ./prisma && prisma deploy -e ../config/test.env",
     "prisma-deploy-prod": "cd ./prisma && prisma deploy -e ../config/prod.env"
   },
   "author": "",
