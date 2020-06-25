@@ -1,5 +1,5 @@
 # source: http://localhost:4466
-# timestamp: Wed Jun 24 2020 17:15:37 GMT-0300 (-03)
+# timestamp: Wed Jun 24 2020 21:46:28 GMT-0300 (Brasilia Standard Time)
 
 type AggregateComment {
   count: Int!
