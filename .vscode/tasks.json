@@ -1,0 +1,40 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "group": "build",
+            "label": "[Docker] Stop all Containers and Remove all Container",
+            "type": "shell",
+            "command": "docker stop $(docker ps -aq) && docker rm -f $(docker ps -aq)",
+            "problemMatcher": []
+        },
+        {
+            "group": "build",
+            "label": "[Docker] Remove all images",
+            "type": "shell",
+            "command": "docker rmi $(docker images -q)",
+            "problemMatcher": []
+        },
+        {
+            "group": "build",
+            "label": "[Docker Compose] Build --build up",
+            "type": "shell",
+            "command": "docker-compose -f ./docker-compose.yml up --build -d",
+            "problemMatcher": []
+        },
+        {
+            "group": "build",
+            "label": "[Docker Compose] Remove Volumes",
+            "type": "shell",
+            "command": "rm -rf ./volumes/*",
+            "problemMatcher": []
+        },
+        {
+            "group": "build",
+            "label": "[Docker PostgreSQL] Login postgres-db",
+            "type": "shell",
+            "command": "docker exec -it postgres-db psql -U postgres",
+            "problemMatcher": []
+        }
+    ]
+}
