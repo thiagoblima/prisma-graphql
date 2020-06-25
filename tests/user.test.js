@@ -1,4 +1,4 @@
-import { getFirstName } from '../src/utils/user'
+import { getFirstName, isValidPassword } from '../src/utils/user'
 
 test('Should return only the individuals first name', () => {
       const firstName = getFirstName('Thiago Lima')
@@ -10,4 +10,10 @@ test('Should return first name when given first name', () => {
     const firstName = getFirstName('Jen')
 
     expect(firstName).toBe('Jen')
+})
+
+test('Should reject password shorter than 8 characters', () => {
+    const isValid = isValidPassword('abc123')
+
+    expect(isValid).toBe(false)
 })
