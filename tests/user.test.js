@@ -1,4 +1,5 @@
 import { getFirstName, isValidPassword } from '../src/utils/user'
+import {text} from 'body-parser'
 
 test('Should return only the individuals first name', () => {
       const firstName = getFirstName('Thiago Lima')
@@ -14,6 +15,12 @@ test('Should return first name when given first name', () => {
 
 test('Should reject password shorter than 8 characters', () => {
     const isValid = isValidPassword('abc123')
+
+    expect(isValid).toBe(false)
+})
+
+test('Should reject password that contains word password', () => {
+    const isValid = isValidPassword('abcPassword098')
 
     expect(isValid).toBe(false)
 })
