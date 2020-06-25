@@ -8,8 +8,8 @@
     "test": "jest --watch",
     "heroku-postbuild": "babel src --out-dir dist --copy-files",
     "dev": "env-cmd ./config/dev.env nodemon src/index.js --ext js,graphql --exec babel-node",
-    "get-dev-schema": "graphql get-schema -p prisma --dotenv config/dev.env",
-    "get-prod-schema": "graphql get-schema -p prisma --dotenv config/prod.env",
+    "get-schema-dev": "graphql get-schema -p prisma --dotenv config/dev.env",
+    "get-schema-prod": "graphql get-schema -p prisma --dotenv config/prod.env",
     "prisma-deploy-dev": "cd ./prisma && prisma deploy -e ../config/dev.env",
     "prisma-deploy-test": "cd ./prisma && prisma deploy -e ../config/test.env",
     "prisma-deploy-prod": "cd ./prisma && prisma deploy -e ../config/prod.env"
