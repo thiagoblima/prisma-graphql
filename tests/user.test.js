@@ -1,4 +1,35 @@
+import 'cross-fetch/polyfill'
+import ApolloBoost, { gql } from 'apollo-boost' 
 import { getFirstName, isValidPassword } from '../src/utils/user'
+
+const client = new ApolloBoost({
+    uri: 'http://localhost:4000'
+})
+
+test('Should create a new user', async () => {
+     const createUser = gql `
+         mutation {
+             createUser(
+                 data: {
+                     name: "Thiago",
+                     email: "thiago@th.com.bf",
+                     password: "ttoo887711111"
+                 }
+             ){
+                 token,
+                 user {
+                     id
+                     name
+                 }
+             }
+         }
+     `
+
+     const response = await client.mutate({
+         mutation: createUser
+     })
+
+})
 
 test('Should return only the individuals first name', () => {
       const firstName = getFirstName('Thiago Lima')
