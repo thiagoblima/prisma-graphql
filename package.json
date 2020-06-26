@@ -14,6 +14,10 @@
     "prisma-deploy-test": "cd ./prisma && prisma deploy -e ../config/test.env",
     "prisma-deploy-prod": "cd ./prisma && prisma deploy -e ../config/prod.env"
   },
+  "jest": {
+    "globalSetup": "./tests/jest/globalSetup.js",
+    "globalTeardown": "./tests/jest/globalTeardown.js"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
