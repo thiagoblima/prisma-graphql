@@ -8,7 +8,8 @@ const client = new ApolloBoost({
     uri: 'http://localhost:4000'
 })
 
-beforeEach(async() => {
+beforeEach(async () => {
+    await prisma.mutation.deleteManyPosts()
     await prisma.mutation.deleteManyUsers()
     await prisma.mutation.createUser({
         data: {
