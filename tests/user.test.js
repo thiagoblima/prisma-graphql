@@ -1,5 +1,6 @@
 import 'cross-fetch/polyfill'
 import ApolloBoost, { gql } from 'apollo-boost' 
+import bcrypt from 'bcryptjs'
 import { getFirstName, isValidPassword } from '../src/utils/user'
 import prisma from '../src/prisma'
 
@@ -9,6 +10,13 @@ const client = new ApolloBoost({
 
 beforeEach(async() => {
     await prisma.mutation.deleteManyUsers()
+    await prisma.mutation.createUser({
+        data: {
+            name: 'Jen',
+            email: 'jen@live.com',
+            password: bcrypt.hashSync('dummypass')
+        }
+    })
 })
 
 test('Should create a new user', async () => {
