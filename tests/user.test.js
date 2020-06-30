@@ -1,7 +1,7 @@
 import 'cross-fetch/polyfill'
-import ApolloBoost, { gql } from 'apollo-boost' 
+import ApolloBoost, {gql} from 'apollo-boost'
 import bcrypt from 'bcryptjs'
-import { getFirstName, isValidPassword } from '../src/utils/user'
+import {getFirstName, isValidPassword} from '../src/utils/user'
 import prisma from '../src/prisma'
 
 const client = new ApolloBoost({
@@ -48,7 +48,7 @@ beforeEach(async () => {
 
 jest.setTimeout(10000)
 test('Should create a new user', async () => {
-     const createUser = gql `
+    const createUser = gql`
          mutation {
              createUser(
                  data: {
@@ -66,19 +66,39 @@ test('Should create a new user', async () => {
          }
      `
 
-     const response = await client.mutate({
-         mutation: createUser
-     })
+    const response = await client.mutate({
+        mutation: createUser
+    })
 
-     const exists = await prisma.exists.User({ id: response.data.createUser.user.id})
-     expect(exists).toBe(true)
+    const exists = await prisma.exists.User({id: response.data.createUser.user.id})
+    expect(exists).toBe(true)
 
 })
 
+test('Should expose public author profiles', async () => {
+    const getUsers = gql`
+        query {
+            users {
+                id
+                name
+                email
+            }
+        }
+    `
+
+    const response = await client.query({
+        query: getUsers
+    })
+
+    expect(response.data.users.length).toBe(1)
+    expect(response.data.users[0].email).toBe(null)
+    expect(response.data.users[0].name).toBe('Jen')
+})
+
 test('Should return only the individuals first name', () => {
-      const firstName = getFirstName('Thiago Lima')
-      
-      expect(firstName).toBe('Thiago')
+    const firstName = getFirstName('Thiago Lima')
+
+    expect(firstName).toBe('Thiago')
 })
 
 test('Should return first name when given first name', () => {
