@@ -120,7 +120,7 @@ test('Should notlogin with bad credentials', async () => {
         mutation {
             login (
                 data: {
-                    email: "jen@jen.com"
+                    email: "jen@live.com"
                     password: "1234"
                 }
             ){
