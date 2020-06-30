@@ -95,6 +95,26 @@ test('Should expose public author profiles', async () => {
     expect(response.data.users[0].name).toBe('Jen')
 })
 
+test('Should expose public posts', async () => {
+     const getPosts = gql`
+        query {
+            posts {
+                id
+                title
+                body
+                published
+            }
+        }
+     `
+
+     const  response = await client.query({
+         query : getPosts
+     })
+
+     expect(response.data.posts.length).toBe(1)
+     expect(response.data.posts[0].published).toBe(true)
+})
+
 test('Should return only the individuals first name', () => {
     const firstName = getFirstName('Thiago Lima')
 
