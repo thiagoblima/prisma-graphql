@@ -115,6 +115,23 @@ test('Should expose public posts', async () => {
     expect(response.data.posts[0].published).toBe(true)
 })
 
+test('Should notlogin with bad credentials', async () => {
+    const login = gql`
+        mutation {
+            login (
+                data: {
+                    email: "jen@jen.com"
+                    password: "1234"
+                }
+            ){
+              token 
+            }
+        }
+    `
+
+    await expect(client.mutate({mutation: login})).rejects.toThrow()
+})
+
 test('Should return only the individuals first name', () => {
     const firstName = getFirstName('Thiago Lima')
 
