@@ -11,15 +11,42 @@ const client = new ApolloBoost({
 beforeEach(async () => {
     await prisma.mutation.deleteManyPosts()
     await prisma.mutation.deleteManyUsers()
-    await prisma.mutation.createUser({
+    const user = await prisma.mutation.createUser({
         data: {
             name: 'Jen',
             email: 'jen@live.com',
-            password: bcrypt.hashSync('dummypass')
+            password: bcrypt.hashSync('Dummypass')
+        }
+    })
+
+    await prisma.mutation.createPost({
+        data: {
+            title: 'Testing Create Post',
+            body: 'Just a test line',
+            published: true,
+            author: {
+                connect: {
+                    id: user.id
+                }
+            }
+        }
+    })
+
+    await prisma.mutation.createPost({
+        data: {
+            title: 'Testing Another Create Post',
+            body: 'Just a test line once more',
+            published: false,
+            author: {
+                connect: {
+                    id: user.id
+                }
+            }
         }
     })
 })
 
+jest.setTimeout(10000)
 test('Should create a new user', async () => {
      const createUser = gql `
          mutation {
