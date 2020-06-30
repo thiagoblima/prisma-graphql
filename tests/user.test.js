@@ -94,6 +94,24 @@ test('Should expose public author profiles', async () => {
     expect(response.data.users[0].name).toBe('Jen')
 })
 
+test('Should not signip user with invalid password', async () => {
+    const createUser = gql`
+        mutation {
+            createUser(
+                data: {
+                    name: "Rob",
+                    email: "rob@live.com",
+                    password: "rob123"
+                }
+            ){
+                token
+            }
+        }
+    `
+
+    await expect(client.mutate({mutation: createUser})).rejects.toThrow()
+})
+
 test('Should expose public posts', async () => {
     const getPosts = gql`
         query {
