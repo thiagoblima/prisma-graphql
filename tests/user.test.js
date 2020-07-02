@@ -1,8 +1,8 @@
 import 'cross-fetch/polyfill'
 import {gql} from 'apollo-boost'
 import prisma from '../src/prisma'
-import seedDatabase from './utils/seedDatabase'
-import getClient from  './utils/getClient'
+import seedDatabase, {userOne} from './utils/seedDatabase'
+import getClient from './utils/getClient'
 
 const client = getClient()
 
@@ -90,4 +90,19 @@ test('Should notlogin with bad credentials', async () => {
     `
 
     await expect(client.mutate({mutation: login})).rejects.toThrow()
+})
+
+test('Should fetch user profile', async () => {
+    const client = getClient(userOne.jwt)
+    const getProfile = gql`
+         query {
+             me {
+                 id
+                 name
+                 email
+             }
+         }
+     `
+
+    await client.query({query: getProfile})
 })
