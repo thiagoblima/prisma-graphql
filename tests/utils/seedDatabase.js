@@ -1,15 +1,20 @@
 import bcrypt from 'bcryptjs'
 import prisma from '../../src/prisma'
 
+const userOne = {
+    input: {
+        name: 'Jen',
+        email: 'jen@live.com',
+        password: bcrypt.hashSync('Dummypass')
+    },
+    user: undefined
+}
+
 const seedDatabase = async () => {
     await prisma.mutation.deleteManyPosts()
     await prisma.mutation.deleteManyUsers()
-    const user = await prisma.mutation.createUser({
-        data: {
-            name: 'Jen',
-            email: 'jen@live.com',
-            password: bcrypt.hashSync('Dummypass')
-        }
+    userOne.user = await prisma.mutation.createUser({
+        data: userOne.input
     })
 
     await prisma.mutation.createPost({
@@ -19,7 +24,7 @@ const seedDatabase = async () => {
             published: true,
             author: {
                 connect: {
-                    id: user.id
+                    id: userOne.user.id
                 }
             }
         }
@@ -32,11 +37,11 @@ const seedDatabase = async () => {
             published: false,
             author: {
                 connect: {
-                    id: user.id
+                    id: userOne.user.id
                 }
             }
         }
     })
 }
 
-export { seedDatabase as default }
+export {seedDatabase as default}
