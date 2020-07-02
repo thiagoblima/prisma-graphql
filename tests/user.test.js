@@ -104,5 +104,10 @@ test('Should fetch user profile', async () => {
          }
      `
 
-    await client.query({query: getProfile})
+     const { data } = await client.query({query: getProfile})
+
+     expect(data.me.id).toBe(userOne.user.id)
+     expect(data.me.name).toBe(userOne.user.name)
+     expect(data.me.email).toBe(userOne.user.email)
+ 
 })
