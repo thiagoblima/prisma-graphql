@@ -1,3 +1,8 @@
+/**
+ * @deprecated: This file has been deprecated,
+ * initials prisma GraphQL testings at the very beggining.
+ */
+
 const users = [{
     id: '1',
     name: 'Andrew',
