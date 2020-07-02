@@ -1,6 +1,6 @@
 /**
  * @deprecated: This file has been deprecated,
- * initials prisma GraphQL testings at the very beggining.
+ * initial Prisma GraphQL testings 
  */
 
 const users = [{
