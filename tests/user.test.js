@@ -9,9 +9,9 @@ const client = getClient()
 beforeEach(seedDatabase)
 
 const createUser = gql`
-         mutation($data: CreateUserInput!) {
-             createUser(data: $data){
-                 token,
+     mutation($data: CreateUserInput!) {
+         createUser(data: $data){
+             token,
                  user {
                      id
                      name
@@ -19,6 +19,24 @@ const createUser = gql`
              }
          }
      `
+
+const getUsers = gql`
+     query {
+         users {
+             id
+             name
+             email
+         }
+     }
+ `
+
+const login = gql`
+mutation($data: LoginUserInput!) {
+    login (data: $data){
+      token 
+    }
+}
+`
 
 jest.setTimeout(10000)
 test('Should create a new user', async () => {
@@ -42,16 +60,6 @@ test('Should create a new user', async () => {
 })
 
 test('Should expose public author profiles', async () => {
-    const getUsers = gql`
-        query {
-            users {
-                id
-                name
-                email
-            }
-        }
-    `
-
     const response = await client.query({
         query: getUsers
     })
@@ -80,20 +88,12 @@ test('Should not signip user with invalid password', async () => {
 })
 
 test('Should notlogin with bad credentials', async () => {
-    const login = gql`
-        mutation {
-            login (
-                data: {
-                    email: "jen@live.com"
-                    password: "1234"
-                }
-            ){
-              token 
-            }
-        }
-    `
+    const variables = {
+        email: "dummy@dm.com.bf",
+        password: "dummy11111"
+    }
 
-    await expect(client.mutate({mutation: login})).rejects.toThrow()
+    await expect(client.mutate({mutation: login, variables: variables})).rejects.toThrow()
 })
 
 test('Should fetch user profile', async () => {
@@ -108,10 +108,9 @@ test('Should fetch user profile', async () => {
          }
      `
 
-     const { data } = await client.query({query: getProfile})
+    const {data} = await client.query({query: getProfile})
 
-     expect(data.me.id).toBe(userOne.user.id)
-     expect(data.me.name).toBe(userOne.user.name)
-     expect(data.me.email).toBe(userOne.user.email)
- 
+    expect(data.me.id).toBe(userOne.user.id)
+    expect(data.me.name).toBe(userOne.user.name)
+    expect(data.me.email).toBe(userOne.user.email)
 })
