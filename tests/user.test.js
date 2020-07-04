@@ -18,13 +18,12 @@ test('Should create a new user', async () => {
         }
     }
 
-
     const response = await client.mutate({
         mutation: createUser,
         variables
     })
 
-    const exists = await prisma.exists.User({id: response.data.createUser.user.id})
+    const exists = await prisma.exists.User({ id: response.data.createUser.user.id })
     expect(exists).toBe(true)
 
 })
@@ -46,21 +45,21 @@ test('Should not signip user with invalid password', async () => {
         password: "dumm"
     }
 
-    await expect(client.mutate({mutation: createUser, variables})).rejects.toThrow()
+    await expect(client.mutate({ mutation: createUser, variables })).rejects.toThrow()
 })
 
-test('Should notlogin with bad credentials', async () => {
+test('Should not login with bad credentials', async () => {
     const variables = {
         email: "dummy@dm.com.bf",
         password: "dummy1"
     }
 
-    await expect(client.mutate({mutation: login, variables})).rejects.toThrow()
+    await expect(client.mutate({ mutation: login, variables })).rejects.toThrow()
 })
 
 test('Should fetch user profile', async () => {
     const client = getClient(userOne.jwt)
-    const {data} = await client.query({query: getProfile})
+    const {data} = await client.query({ query: getProfile })
 
     expect(data.me.id).toBe(userOne.user.id)
     expect(data.me.name).toBe(userOne.user.name)
