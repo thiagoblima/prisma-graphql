@@ -1,42 +1,12 @@
 import 'cross-fetch/polyfill'
-import {gql} from 'apollo-boost'
 import prisma from '../src/prisma'
 import seedDatabase, {userOne} from './utils/seedDatabase'
 import getClient from './utils/getClient'
+import { createUser, getUsers, login, getProfile } from  './utils/operations'
 
 const client = getClient()
 
 beforeEach(seedDatabase)
-
-const createUser = gql`
-     mutation($data: CreateUserInput!) {
-         createUser(data: $data){
-             token,
-                 user {
-                     id
-                     name
-                 }
-             }
-         }
-     `
-
-const getUsers = gql`
-     query {
-         users {
-             id
-             name
-             email
-         }
-     }
- `
-
-const login = gql`
-mutation($data: LoginUserInput!) {
-    login (data: $data){
-      token 
-    }
-}
-`
 
 jest.setTimeout(10000)
 test('Should create a new user', async () => {
@@ -70,12 +40,11 @@ test('Should expose public author profiles', async () => {
 })
 
 test('Should not signip user with invalid password', async () => {
-
-const variables = {
-    name: "Rob",
-    email: "rob234.com.bf",
-    password: "dumm"
-}
+    const variables = {
+        name: "Rob",
+        email: "rob234.com.bf",
+        password: "dumm"
+    }
 
     await expect(client.mutate({mutation: createUser, variables})).rejects.toThrow()
 })
@@ -83,7 +52,7 @@ const variables = {
 test('Should notlogin with bad credentials', async () => {
     const variables = {
         email: "dummy@dm.com.bf",
-        password: "dummy11111"
+        password: "dummy1"
     }
 
     await expect(client.mutate({mutation: login, variables})).rejects.toThrow()
@@ -91,16 +60,6 @@ test('Should notlogin with bad credentials', async () => {
 
 test('Should fetch user profile', async () => {
     const client = getClient(userOne.jwt)
-    const getProfile = gql`
-         query {
-             me {
-                 id
-                 name
-                 email
-             }
-         }
-     `
-
     const {data} = await client.query({query: getProfile})
 
     expect(data.me.id).toBe(userOne.user.id)
