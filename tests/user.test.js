@@ -70,21 +70,14 @@ test('Should expose public author profiles', async () => {
 })
 
 test('Should not signip user with invalid password', async () => {
-    const createUser = gql`
-        mutation {
-            createUser(
-                data: {
-                    name: "Rob",
-                    email: "rob@live.com",
-                    password: "rob123"
-                }
-            ){
-                token
-            }
-        }
-    `
 
-    await expect(client.mutate({mutation: createUser})).rejects.toThrow()
+const variables = {
+    name: "Rob",
+    email: "rob234.com.bf",
+    password: "dumm"
+}
+
+    await expect(client.mutate({mutation: createUser, variables})).rejects.toThrow()
 })
 
 test('Should notlogin with bad credentials', async () => {
@@ -93,7 +86,7 @@ test('Should notlogin with bad credentials', async () => {
         password: "dummy11111"
     }
 
-    await expect(client.mutate({mutation: login, variables: variables})).rejects.toThrow()
+    await expect(client.mutate({mutation: login, variables})).rejects.toThrow()
 })
 
 test('Should fetch user profile', async () => {
