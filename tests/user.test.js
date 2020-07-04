@@ -8,17 +8,9 @@ const client = getClient()
 
 beforeEach(seedDatabase)
 
-jest.setTimeout(10000)
-test('Should create a new user', async () => {
-    const createUser = gql`
-         mutation {
-             createUser(
-                 data: {
-                     name: "Dummy User",
-                     email: "dummy@dm.com.bf",
-                     password: "dummy11111"
-                 }
-             ){
+const createUser = gql`
+         mutation($data: CreateUserInput!) {
+             createUser(data: $data){
                  token,
                  user {
                      id
@@ -28,8 +20,20 @@ test('Should create a new user', async () => {
          }
      `
 
+jest.setTimeout(10000)
+test('Should create a new user', async () => {
+    const variables = {
+        data: {
+            name: "Dummy User",
+            email: "dummy@dm.com.bf",
+            password: "dummy11111"
+        }
+    }
+
+
     const response = await client.mutate({
-        mutation: createUser
+        mutation: createUser,
+        variables
     })
 
     const exists = await prisma.exists.User({id: response.data.createUser.user.id})
