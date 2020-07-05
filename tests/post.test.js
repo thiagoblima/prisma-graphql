@@ -8,7 +8,7 @@ const client = getClient()
 
 beforeEach(seedDatabase)
 
-jest.setTimeout(10000)
+jest.setTimeout(20000)
 test('Should expose public posts', async () => {
     const response = await client.query({
         query: getPosts
