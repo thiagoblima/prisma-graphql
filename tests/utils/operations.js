@@ -111,15 +111,15 @@ const subscribeToComments = gql`
     subscription($postId: ID!) {
         comment(postId: $postId) {
             mutation 
-                node {
-                    id
-                    text
-                }
+            node {
+                id
+                text
+            }
         }
-    }
+    } 
  `
 
- const subscribeToPosts =gql`
+ const subscribeToPosts = gql`
       subscription {
           post {
               mutation 

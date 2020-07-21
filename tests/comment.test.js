@@ -31,7 +31,7 @@ test('Should not delte other users comment', async () => {
 
 })
 
-test('Should subscribe to comments for a post', async () => {
+test('Should subscribe to comments for a post', async (done) => {
     const variables = {
         postId: postOne.post.id
     }
